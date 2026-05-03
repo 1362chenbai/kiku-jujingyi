@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<!-- Meta 标签：定义页面的基本信息 -->
+	<meta charset="utf-8"> <!-- UTF-8 编码，用于正确显示中文字符 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport 设置，用于响应式布局 -->
+	<meta name="description" content="鞠 Schönheit"> <!-- 页面描述，用于 SEO -->
+	<meta name="keywords" content="鞠婧祎,图片库,相册,私人域,视频"> <!-- 页面关键词，用于 SEO -->
+	<meta name="author" content="鞠婧祎"> <!-- 页面作者信息 -->
+	<title>鞠婧祎</title> <!-- 页面标题，显示在浏览器标签页 -->
+    
+	<!-- Favicon: 浏览器标签页的小图标 -->
+	<link rel="icon" href="favicon.png" type="image/png"> <!-- 链接网站的 favicon -->
+    
+	<!-- Tailwind CSS CDN: 导入 Tailwind CSS 框架，用于快速样式化 -->
+	<script src="https://cdn.tailwindcss.com"></script>
+    
+	<!-- Font Awesome CDN: 导入 Font Awesome 图标库，用于各种图标 -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<!-- 链接本地 CSS 样式文件 -->
+	<link rel="stylesheet" href="style.css">
+    
+	<!-- Nunito Font: 从 Google Fonts 导入 Nunito 字体，增强可读性 -->
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+	<!-- Internal Styles for the Page -->
+	<style type="text/tailwindcss">
+		/* Tailwind CSS @layer 指令，用于组织自定义样式 */
+		@tailwind base;       /* Tailwind 的基础样式 */
+		@tailwind components; /* Tailwind 的组件样式 */
+		@tailwind utilities;  /* Tailwind 的工具类样式 */
+
+		/* Custom Base Styles: 自定义基础样式 */
+		@layer base {
+			body {
+				/* 设置页面背景为深灰色，文本为浅灰色，最小高度充满视口，隐藏横向溢出，设置字体为 Nunito */
+				@apply bg-gray-900 text-gray-100 min-h-screen overflow-x-hidden font-sans; 
+			}
+		}
+
+		/* Custom Component and Utility Styles: 自定义组件和工具类样式 */
+		@layer components {
+			/* --- Background Effects (Retained): 背景效果 --- */
+			/* 背景效果容器 */
+			.tech-bg {
+				/* 固定定位，覆盖整个视口，z-index -2 放置在最底层 */
+				position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+				/* 设置线性渐变背景，从深蓝到更深的蓝色 */
+				background: linear-gradient(135deg, #0a192f 50%, #112240 100%); 
+				overflow: hidden; /* 隐藏溢出部分 */
+			}
+            
+			/* --- Particles and Data Flow Effects (Retained): 粒子和数据流效果 --- */
+			/* 粒子效果容器 */
+			#particles { 
+				position: absolute; inset: 0; /* 绝对定位，充满父容器 */
+			} 
+			/* 单个粒子样式 */
+			.particle {
+				position: absolute; border-radius: 50%; /* 绝对定位，圆形 */
+				/* 径向渐变背景，从浅蓝色到淡蓝色 */
+				background: radial-gradient(circle, rgba(100, 210, 255, 0.8) 0%, rgba(76, 175, 255, 0.2) 70%); 
+				pointer-events: none; z-index: -1; /* 不响应鼠标事件，确保在背景层 */
+				box-shadow: 0 0 15px rgba(100, 210, 255, 0.7); /* 添加发光效果 */
+			}
+
+			/* 数据流效果容器 */
+			.data-flow { 
+				position: absolute; width: 100%; height: 100%; z-index: -1; /* 绝对定位，充满视口，在背景层 */
+			}
+			/* 单个数据流线条 */
+			.data-line {
+				position: absolute;
+				/* 渐变背景，从透明到紫色再到透明 */
+				background: linear-gradient(to right, rgba(193, 109, 255, 0) 0%, rgba(193, 109, 255, 0.7) 50%, rgba(193, 109, 255, 0) 100%); 
+				height: 1px; /* 线条高度 */
+				transform-origin: left center; /* 设置旋转和缩放的基准点 */
+			}
+			/* 波浪效果 */
+			.wave {
+				position: absolute; bottom: 0; left: 0; width: 100%; height: 120px; 
+				background-size: 1440px 120px; /* 背景图片大小 */
+				animation: wave 15s linear infinite; /* 应用波浪动画 */
+				background-repeat: repeat-x; /* 背景图片横向重复 */
+				/* 导入SVG绘制的紫色波浪 */
+				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"><path fill="%239D65FF" fill-opacity="0.7" d="M0,64 C120,96 240,120 360,110 C480,100 600,70 720,70 C840,70 960,100 1080,110 C1200,120 1320,100 1440,70 L1440,120 L0,120 Z"></path></svg>'); 
+			}
+			/* 第二层波浪，用于叠加效果 */
+			.wave:nth-child(2) {
+				bottom: 3px; /* 向上轻微偏移 */
+				animation: wave 20s linear infinite reverse; /* 反向播放动画 */
+				opacity: 0.6; /* 设置透明度 */
+				/* 导入SVG绘制的蓝色波浪 */
+				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"><path fill="%2364D2FF" fill-opacity="0.5" d="M0,64 C120,96 240,120 360,110 C480,100 600,70 720,70 C840,70 960,100 1080,110 C1200,120 1320,100 1440,70 L1440,120 L0,120 Z"></path></svg>'); 
+			}
+			/* 波浪动画 */
+			@keyframes wave { 0% { background-position-x: 0; } 100% { background-position-x: 1440px; } }
+			/* 漂浮动画 */
+			@keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+            
+			/* Loader Styles (Retained): 加载器样式 */
+			/* 加载器容器 */
+			.loader { 
+				display: flex; justify-content: center; align-items: center; /* Flexbox 居中 */
+				height: 100vh; background-color: #0a192f; /* 全屏，深蓝背景 */
+				position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; /* 固定定位，最上层 */
+				transition: opacity 0.5s ease; /* 淡出过渡效果 */
+			}
+			/* 加载器内容 */
+			.loader-content { text-align: center; }
+			/* 加载器旋转动画 */
+			.loader-spinner { 
+				width: 60px; height: 60px; 
+				border: 5px solid rgba(100, 210, 255, 0.2); /* 淡蓝色边框 */
+				border-top-color: #64D2FF; /* 顶部亮蓝色 */
+				border-radius: 50%; /* 圆形 */
+				animation: spin 1s linear infinite; /* 应用旋转动画 */
+				margin: 0 auto 20px; /* 上下外边距，居中 */
+			}
+			@keyframes spin { to { transform: rotate(360deg); } } /* 360度旋转动画 */
+            
+			/* Scrollbar Styles (Retained): 滚动条样式 */
+			/* Webkit 浏览器滚动条样式（Chrome, Safari） */
+			::-webkit-scrollbar { width: 10px; height: 10px; } /* 滚动条宽度 */
+			::-webkit-scrollbar-track { background: #112240; } /* 滚动条轨道背景 */
+			::-webkit-scrollbar-thumb { 
+				/* 滚动条滑块渐变背景 */
+				background: linear-gradient(135deg, #9D65FF 0%, #64D2FF 100%); 
+				border-radius: 5px; /* 圆角 */
+			}
+			::-webkit-scrollbar-thumb:hover { 
+				/* 滚动条滑块悬停背景 */
+				background: linear-gradient(135deg, #64D2FF 0%, #9D65FF 100%); 
+			}
+
+			/* --- Carousel Component Styles --- */
+			/* 轮播图区域 */
+			#carousel-section { 
+				position: relative; width: 100%; max-width: 100%; margin: 20px auto;
+				overflow: hidden; border-radius: 16px; /* 隐藏溢出，圆角 */
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* 添加阴影 */
+			}
+
+			/* 轮播图单页 */
+			.carousel-slide {
+				min-width: 100%; flex-shrink: 0; box-sizing: border-box; /* 100%宽度，不收缩，边框盒模型 */
+				display: flex; justify-content: center; align-items: center; /* FlexBox 居中内容 */
+				opacity: 0; /* 初始透明度为0，隐藏 */
+				transition: opacity 0.8s ease-in-out; /* 淡入/淡出过渡效果 */
+			}
+			.carousel-slide.active { opacity: 1; } /* 活动页显示 */
+			.carousel-slide.hidden-slide { display: none; } /* 隐藏非活动页 */
+
+			/* 轮播图中的图片 */
+			.carousel-slide img {
+				object-fit: contain; /* 保持纵横比，在容器内缩放 */
+				display: block; margin: 0 auto; /* 块级元素，居中 */
+				border-radius: 12px; /* 图片圆角 */
+				box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* 图片阴影 */
+			}
+
+			/* 轮播图控制按钮（左右箭头） */
+			.carousel-control { 
+				position: absolute; top: 50%; transform: translateY(-50%); /* 绝对定位，垂直居中 */
+				background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+				color: white; border: none; /* 白色文本/图标，无边框 */
+				padding: 12px 18px; /* 内边距 */
+				cursor: pointer; font-size: 28px; /* 指针光标，图标大小 */
+				z-index: 10; /* 保证层级 */
+				border-radius: 50%; width: 55px; height: 55px; /* 圆形按钮 */
+				display: flex; justify-content: center; align-items: center; /* FlexBox 居中 */
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* 按钮阴影 */
+				transition: background-color 0.3s ease, transform 0.3s ease; /* 过渡效果 */
+			}
+			/* 悬停效果 */
+			.carousel-control:hover { background-color: rgba(100, 210, 255, 0.6); transform: translateY(-50%) scale(1.1); } 
+			.carousel-control.prev { left: 25px; } /* 上一个按钮位置 */
+			.carousel-control.next { right: 25px; } /* 下一个按钮位置 */
+
+			/* 指示器（小圆点）样式 */
+			.carousel-indicators { 
+				position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); /* 绝对定位，底部居中 */
+				display: flex; gap: 12px; z-index: 15; /* FlexBox 布局，间距，更高层级 */
+			}
+			/* 单个指示器点 */
+			.indicator { 
+				width: 14px; height: 14px; background-color: rgba(255, 255, 255, 0.4); /* 淡白色背景 */
+				border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; /* 圆形，指针，过渡 */
+			}
+			.indicator.active { 
+				background-color: #64D2FF; /* 活动时为蓝色 */
+				box-shadow: 0 0 10px rgba(100, 210, 255, 0.8); /* 发光效果 */
+			}
+            
+			/* --- Image Gallery Styles (Crucial for display) --- */
+			/* Gallery section */
+			#gallery { margin-top: 50px; } 
+			/* Gallery grid layout */
+			.gallery-grid {
+				display: grid;
+				/* Responsive column layout: auto-fill, min column width 220px, max 1fr */
+				grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+				gap: 20px; /* Spacing between images */
+				margin-top: 25px;
+			}
+			/* Individual gallery item */
+			.gallery-item {
+				background-color: #112240; /* Dark blue background */
+				border-radius: 12px; /* Rounded corners */
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow */
+				text-align: center;
+				transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effect */
+				cursor: pointer; /* Pointer cursor */
+                
+				/* --- **Key Adjustments for Full Image Display** --- */
+				/* Ensures the card container follows the image's aspect ratio */
+				/* Removed explicit height and aspect-ratio from here as img's aspect-ratio should dominate */
+				/* Re-introduced aspect-ratio and height:auto for gallery item itself to ensure container respects proportion */
+				aspect-ratio: 4 / 5; /* **Crucial:** Match card aspect ratio to image */
+				height: auto; /* Let height be determined */
+				overflow: hidden; /* Hide any potential overflow */
+			}
+			/* Hover effect */
+			.gallery-item:hover {
+				transform: translateY(-8px); /* Move up */
+				box-shadow: 0 15px 30px rgba(193, 109, 255, 0.4); /* Enhance shadow */
+			}
+			/* Gallery image style */
+			.gallery-item img {
+				width: 100%;
+				height: auto; /* **Crucial:** Image height adjusts automatically */
+				object-fit: contain; /* **Crucial:** Ensures the entire image is visible */
+				aspect-ratio: 1080 / 1350; /* **Crucial:** Explicitly sets the image's aspect ratio */
+				display: block;
+				border-radius: 0; /* Remove image border radius to let card's border-radius show */
+			}
+			/* Caption below gallery image */
+			.gallery-item .caption {
+				padding: 15px; /* Padding */
+				font-size: 1rem; /* Font size */
+				color: #e0e0e0; /* Light gray text */
+				font-weight: 500; /* Font weight */
+				width: 100%; /* Ensure caption takes full width */
+				margin-top: auto; /* Push caption to the bottom if card has space */
+			}
+
+			/* --- Footer Styles (Retained) --- */
+			/* Footer style */
+			footer {
+				text-align: center; padding: 3rem 0; margin-top: 60px; /* Center aligned, padding, top margin */
+				background-color: #0a192f; /* Dark blue background */
+				color: #ccd6f6; /* Light purple text */
+				font-size: 0.95rem;
+				position: relative; overflow: hidden; /* Relative positioning, hide overflow */
+			}
+			/* Decorative gradient line in footer header */
+			footer::before { 
+				content: '';
+				position: absolute;
+				top: 0; left: 0; right: 0;
+				height: 5px;
+				background: linear-gradient(to right, #9D65FF, #64D2FF); /* Purple to blue gradient */
+			}
+			footer a { color: #64D2FF; text-decoration: none; } /* Footer link style */
+			footer a:hover { text-decoration: underline; color: #fff; }
+
+			/* --- Content Layout Adjusted (Retained) --- */
+			/* Main content wrapper layout */
+			.content-wrapper {
+				display: flex; 
+				flex-direction: column; /* Vertical layout */
+				align-items: center; /* Center child elements */
+				gap: 40px; /* Spacing between children */
+				width: 100%; /* 100% width */
+				margin: 0 auto; 
+				padding: 0 25px; /* Left/right padding */
+				max-width: 1200px; /* Maximum width */
+			}
+
+			/* Specific Section Orders and Layouts (Retained) */
+			/* Carousel section layout within content wrapper */
+			.carousel-section { 
+				flex: none; /* Do not participate in flex shrinking/growing */
+				width: 100%; 
+				display: flex; 
+				flex-direction: column; /* Vertical layout */
+				min-height: 700px; /* Minimum height */
+				justify-content: center; /* Vertically center */
+				position: relative; 
+				box-sizing: border-box; 
+				margin-top: 40px; /* Top margin */
+				order: 2; /* Order in flex layout */
+			}
+			/* Carousel container for centering slides */
+			.carousel-container { 
+				flex-grow: 1; 
+				display: flex; 
+				align-items: center; /* Vertically center */
+				position: relative; 
+				height: auto; 
+				border-radius: 16px; 
+				overflow: hidden; /* Hide overflow */
+			}
+			/* Max dimensions for images within carousel slides */
+			.carousel-slide img {
+				max-height: 95%; 
+				max-width: 95%; 
+				object-fit: contain; 
+			}
+			/* Weather information section layout within content wrapper */
+			.weather-section {
+				width: 100%; 
+				display: flex; 
+				flex-direction: row; /* Horizontal layout */
+				gap: 25px; /* Spacing between children */
+				justify-content: center; /* Horizontally center */
+				margin-top: 0; 
+				order: 1; /* Order in flex layout */
+				align-items: stretch; /* Make children equal height */
+				flex-wrap: wrap; /* Allow wrapping */
+			}
+			/* Semi-transparent divs in weather section */
+			.weather-section > div[class*="bg-white/5"] { /* Matches any class starting with bg-white/5 */
+				flex-basis: calc(50% - 12.5px); /* Width calculation */
+				min-height: 220px; /* Minimum height */
+				display: flex; 
+				flex-direction: column; 
+				justify-content: center; 
+				align-items: center; 
+				padding: 0; margin: 0;  
+				box-shadow: none; border: none;      
+			}
+			/* Individual weather display block */
+			.weather-block { 
+				width: 100%; min-height: 220px; /* Full width, minimum height */
+				display: flex; flex-direction: column; /* Vertical layout */
+				justify-content: center; align-items: center; /* Center content */
+				padding: 25px; /* Padding */
+				background-color: rgba(17, 34, 64, 0.7); /* Semi-transparent dark blue background */
+				backdrop-filter: blur(8px); /* Background blur effect */
+				border-radius: 16px; /* Rounded corners */
+				border: 1px solid rgba(100, 210, 255, 0.2); /* Pale blue border */
+				transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Transition effect */
+			}
+			/* Hover effect */
+			.weather-block:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 5px 15px rgba(193, 109, 255, 0.3); 
+			}
+            
+			/* --- Responsive Adjustments (Retained) --- */
+			/* Responsive design section */
+			@layer responsive {
+				 /* Screens 768px and wider (medium screens and up) */
+				 @media (min-width: 768px) { 
+					.content-wrapper { flex-direction: column; align-items: center; gap: 40px; }
+					.carousel-section, .weather-section { width: 100%; max-width: unset; margin-left: auto; margin-right: auto; }
+					.carousel-section { max-width: 800px; } /* Carousel max width */
+					.weather-section { max-width: 800px; } /* Weather section max width */
+					.carousel-section { order: 2; } /* Carousel order */
+					.weather-section { order: 1; flex-direction: row; justify-content: center; gap: 25px; margin-top: 0; align-items: stretch; flex-wrap: wrap; } /* Weather section order */
+					 .weather-section > div[class*="bg-white/5"] { flex-basis: calc(50% - 12.5px); } /* Two-column layout */
+				}
+				/* Screens up to 768px wide (small screens) */
+				@media (max-width: 768px) { 
+					.carousel-section { order: 2; } /* Carousel placed after */
+					.weather-section {
+						flex-direction: column; order: 1; align-items: center; max-width: 100%; width: 100%; /* Weather section placed first, vertical layout */
+					}
+					.weather-section > div[class*="bg-white/5"] { flex-basis: auto; width: 100%; } /* Single column layout */
+				 }
+				/* Screens up to 480px wide (extra small screens) */
+				@media (max-width: 480px) { 
+					#carousel-section {
+						width: 95%; height: 350px; margin-top: 20px; margin-bottom: 20px;
+						border-radius: 12px;
+					}
+					.carousel-slide img { max-height: 88%; max-width: 98%; }
+					.carousel-control { width: 40px; height: 40px; font-size: 18px; left: 15px; right: 15px; }
+					.carousel-indicators { bottom: 15px; gap: 8px; }
+					.indicator { width: 10px; height: 10px; }
+					.gallery-grid { grid-template-columns: 1fr; } /* Gallery items stacked */
+					/* Keep aspect ratio on smaller screens */
+					.gallery-item { 
+						aspect-ratio: 4 / 5; /* Ensure aspect ratio */
+						height: auto;
+					}
+					.gallery-item img {
+						height: auto; /* Auto height */
+						aspect-ratio: 1080 / 1350; /* Image aspect ratio */
+					}
+					.gallery-item .caption { font-size: 0.9rem; padding: 10px; }
+					.carousel-section { margin-top: 15px; } /* Adjust spacing */
+					.weather-section { margin-top: 15px; } /* Adjust spacing */
+				}
+			}
+
+			/* --- Positioning the Music Control Button --- */
+			/* Profile header section */
+			.profile-header-section {
+				 position: relative; /* Relative positioning for absolute positioning of children */
+				 display: flex; /* Flexbox layout */
+				 flex-direction: column; /* Vertical arrangement */
+				 align-items: center; /* Center child elements */
+				 margin-bottom: 25px; /* Bottom margin */
+			}
+
+			/* **Music control button styles** */
+			.audio-control-button {
+				position: absolute; /* Absolute positioning relative to profile-header-section */
+				/* --- **Position adjustment: For bettercentering** --- */
+				top: 50%; 
+				left: 50%; /* Centered horizontally and vertically */
+				transform: translate(-50%, 45%); /* Adjustment offset for a tighter fit with title */
+				/* --- **End adjustment** --- */
+
+				z-index: 25; /* z-index ensures the button is on a higher layer */
+
+				background-color: rgba(100, 210, 255, 0.3); /* Semi-transparent blue background */
+				color: #64D2FF; /* Bright blue icon */
+				border: none; /* No border */
+				border-radius: 50%; /* Circular shape */
+				width: 50px; /* Width */
+				height: 50px; /* Height */
+				display: flex; /* Flexbox layout */
+				justify-content: center; /* Horizontal centering */
+				align-items: center; /* Vertical centering */
+				font-size: 24px; /* Icon size */
+				cursor: pointer; /* Pointer cursor */
+				transition: background-color 0.3s ease, transform 0.3s ease; /* Transition effect */
+				box-shadow: 0 0 15px rgba(100, 210, 255, 0.5); /* Glow effect */
+			}
+			/* Hover effect */
+			.audio-control-button:hover {
+				background-color: rgba(100, 210, 255, 0.5); /* Brighter background on hover */
+				/* Maintain position adjustment, but add scaling animation on hover */
+				transform: translate(-50%, 45%) scale(1.1); 
+			}
+			/* **New: Styles for previous/next song buttons** */
+			.nav-buttons-container {
+				position: absolute; /* Absolute positioning, same layer as play button */
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, 140%); /* Adjusted to be directly below the play button */
+				display: flex;
+				gap: 20px; /* Gap between buttons */
+				z-index: 25; /* Ensure correct layering */
+			}
+			.nav-buttons-container button { /* Common style for all navigation buttons */
+				background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+				color: #ccd6f6; /* Light gray text/icon */
+				border: none;
+				border-radius: 50%; /* Circular shape */
+				width: 45px; /* Button size */
+				height: 45px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 20px; /* Icon size */
+				cursor: pointer;
+				transition: background-color 0.3s ease, transform 0.3s ease;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+			}
+			.nav-buttons-container button:hover {
+				background-color: rgba(100, 210, 255, 0.5); /* Hover effect */
+				transform: scale(1.1); /* Scaling on hover */
+			}
+			/* **Video Player Styles** (New) */
+			.video-player-section {
+				width: 100%; /* 100% width */
+				max-width: 800px; /* Max width, consistent with carousel and weather */
+				margin: 40px auto 0; /* Top spacing, center aligned */
+				padding: 25px; /* Padding */
+				background-color: rgba(17, 34, 64, 0.7); /* Semi-transparent dark blue background */
+				backdrop-filter: blur(8px); /* Background blur effect */
+				border-radius: 16px; /* Rounded corners */
+				border: 1px solid rgba(100, 210, 255, 0.2); /* Pale blue border */
+				display: flex; /* Flexbox layout */
+				flex-direction: column; /* Vertical arrangement */
+				align-items: center; /* Center children */
+				gap: 20px; /* Spacing between children */
+			}
+			.video-player-section h2 { /* Video module title */
+				font-size: clamp(1.5rem, 4vw, 2rem); /* Responsive font size */
+				font-weight: bold;
+				color: white;
+				text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Text shadow */
+			}
+			.video-controls { /* Video control button area */
+				width: 100%;
+				display: flex;
+				justify-content: center; /* Center control buttons */
+				gap: 15px; /* Button gap */
+				margin-top: 10px; /* Top margin */
+			}
+			.video-controls button { /* Common styles for video control buttons */
+				background-color: rgba(0,0,0,0.5); /* Semi-transparent black */
+				color: #64D2FF; /* Bright blue icon */
+				border: none;
+				border-radius: 50%; /* Circular */
+				width: 45px; height: 45px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 20px; /* Icon size */
+				cursor: pointer;
+				transition: background-color 0.3s ease, transform 0.3s ease;
+				box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+			}
+			.video-controls button:hover {
+				background-color: rgba(100, 210, 255, 0.5); /* Hover effect */
+				transform: scale(1.1);
+			}
+			.video-player-section video { /* Video element style */
+				max-width: 100%; /* Max width 100% */
+				height: auto; /* Height auto */
+				border-radius: 12px; /* Rounded corners */
+				display: block; /* Block element */
+				margin: 0 auto; /* Center align */
+				box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Image shadow */
+			}
+			/* **End of Video Player Styles** */
+		}
+	</style>
+</head>
+<body>
+
+	<!-- --- Password Protection Area --- -->
+	<!-- 这个 div 将最先显示，需要输入密码才能访问网站内容。 -->
+	<div id="password-protection" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-lg overflow-auto p-4">
+		<!-- 密码输入界面的容器 -->
+		<div class="bg-white/5 backdrop-blur-lg rounded-2xl shadow-xl p-8 border border-white/20 text-center max-w-sm w-full">
+			<!-- 密码保护区域的标题 -->
+			<h2 class="text-3xl font-bold text-white mb-6">小橘子打怪</h2>
+			<!-- 用户提示信息 -->
+			<p class="text-gray-400 mb-6">你知道的。</p>
+            
+			<!-- 密码输入框 -->
+			<input 
+				type="password" 
+				id="password-input" 
+				placeholder="暗号" 
+				class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4 text-lg"
+				autocomplete="off" <!-- 阻止浏览器自动填充密码 -->
+			/>
+            
+			<!-- 用于提交密码的按钮 -->
+			<button 
+				id="submit-password-btn" 
+				class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out text-lg"
+			>
+				进入网站
+			</button>
+            
+			<!-- 用于显示错误信息的段落，默认隐藏 -->
+			<p id="password-error" class="text-red-500 text-sm mt-4" style="display: none;">小橘子,笨笨的!</p>
+		</div>
+	</div>
+	<!-- --- End of Password Protection Area --- -->
+
+	<!-- Loader: 页面加载时的Loading动画 -->
+	<div id="loader" class="loader">
+		<div class="loader-content"> <!-- 加载动画的内容容器 -->
+			<div class="loader-spinner"></div> <!-- 加载动画的旋转指示器 -->
+			<h2 class="text-lg font-bold">鞠婧祎</h2> <!-- 加载动画的标题 -->
+			<p class="text-gray-400 mt-2">小狗儿enjoy</p> <!-- 加载动画的副标题 -->
+		</div>
+	</div>
+    
+	<!-- Background Effects: 页面背景的各种动态效果 -->
+	<div class="tech-bg"> <!-- 背景效果的总容器 -->
+		<div id="particles"></div> <!-- 粒子效果的容器 -->
+		<div id="data-flow"></div> <!-- 数据流效果的容器 -->
+		<div class="wave"></div> <!-- 第一层海浪 -->
+		<div class="wave"></div> <!-- 第二层海浪 (用于叠加效果) -->
+	</div>
+    
+	<!-- Main Content Wrapper: mian 标签包裹了 header, content-wrapper, 还有 gallery；主内容区域的总包裹器 -->
+	<main class="container mx-auto px-4 py-12 relative z-10"> <!-- 主内容区域，设置了最大宽度、居中、内边距、相对定位和层级 -->
+		<!-- Header: 页面顶部的区域，包含 Logo、标题、作者信息等 -->
+		<header class="text-center mb-12"> <!-- 头部区域，文字居中，下方有12单位的外边距 -->
+			<!-- Logo Section: Logo展示区域 -->
+			<div class="relative inline-block mb-6 logo-container"> <!-- Logo容器，内部元素相对定位 -->
+				<img src="favicon.png" alt="鞠婧祎 Logo" class="logo-image w-full h-full rounded-full object-cover border-4 border-purple-400 shadow-lg animate-float"> <!-- Logo图片，设置了圆角、边框、阴影和漂浮动画 -->
+			</div>
+
+			<!-- Profile Header Section: 包含个人信息标题和音乐控制按钮 -->
+			<div class="profile-header-section">
+				<!-- Main Title of the Page：页面的主标题 -->
+				<h1 class="text-[clamp(2.5rem,6vw,4rem)] font-bold text-white text-shadow mb-3 tracking-tight">
+					鞠婧祎
+				</h1>
+				<!-- Subtitle：页面的副标题 -->
+				<p class="text-[clamp(1.1rem,2.5vw,1.4rem)] text-gray-400 max-w-3xl mx-auto mb-8">
+				   橘子乐园
+				</p>
+
+				<!-- Music Control Button: Main play/pause control for music -->
+				<button id="musicControlBtn" class="audio-control-button" aria-label="Play Music">
+					<i id="musicIcon" class="fa fa-play"></i> <!-- 默认显示播放图标 -->
+				</button>
+
+				<!-- **New: Container for music navigation buttons**：新增：音乐导航按钮的容器 -->
+				<div class="nav-buttons-container">
+					<button id="prevBtn" class="fa fa-backward" aria-label="Previous Song"></button> <!-- 上一首按钮 -->
+					<button id="nextBtn" class="fa fa-forward" aria-label="Next Song"></button> <!-- 下一首按钮 -->
+				</div>
+				<!-- **End of New Addition** -->
+
+				<!-- Audio Elements: Element used for playing audio -->
+				<audio id="myAudioPlayer" preload="metadata"> <!-- audio 标签 -->
+					Your browser does not support the audio element. <!-- 浏览器不支持 audio 标签时的提示 -->
+				</audio>
+			</div>
+
+			<!-- Social Icons: Social media link icons -->
+			<div class="flex justify-center gap-5 mb-8"> <!-- Flex 布局，item 间距 5，下方外边距 8 -->
+				<!-- GitHub 链接 -->
+				<a href="#" target="_blank" aria-label="GitHub" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm shadow-lg flex items-center justify-center text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-110 text-2xl"><i class="fa fa-github"></i></a>
+				<!-- Bilibili 链接 -->
+				<a href="https://space.bilibili.com/11454050?spm_id_from=333.1007.0.0" target="_blank" aria-label="Bilibili" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm shadow-lg flex items-center justify-center text-gray-300 hover:bg-pink-600 hover:text-white transition-all duration-300 transform hover:scale-110 text-2xl"><i class="fa fa-video-camera"></i></a> <!-- Bilibili 图标 -->
+				<!-- Email 链接 -->
+				<a href="mailto:whctwlgzs@foxmail.com" aria-label="Email" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm shadow-lg flex items-center justify-center text-gray-300 hover:bg-purple-500 hover:text-white transition-all duration-300 transform hover:scale-110 text-2xl"><i class="fa fa-envelope"></i></a>
+				<!-- Telegram 链接 -->
+				<a href="#" target="_blank" aria-label="Telegram" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm shadow-lg flex items-center justify-center text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-110 text-2xl"><i class="fa fa-telegram"></i></a>
+				<!-- Twitter 链接 -->
+				<a href="#" target="_blank" aria-label="Twitter" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm shadow-lg flex items-center justify-center text-gray-300 hover:bg-blue-400 hover:text-white transition-all duration-300 transform hover:scale-110 text-2xl"><i class="fa fa-twitter"></i></a>
+			</div>
+		</header>
+        
+		<!-- Content Wrapper for overall vertical layout: 整体内容区域的包裹器，实现垂直布局 -->
+		<div class="content-wrapper"> 
+            
+			<!-- Weather Information Section (Above carousel)：天气信息区域（在轮播图上方） -->
+			<!-- Placed inside main, ordered as order: 1 in flex layout -->
+			<section class="weather-section w-full max-w-[800px] flex-none min-h-auto gap-[20px] justify-start flex-direction-column order-1">
+				<!-- Quote Component: Displays a random quote -->
+				<div class="bg-white/5 backdrop-blur-lg rounded-2xl shadow-xl p-7 card-hover border border-white/20 flex-grow flex flex-col justify-center"> <!-- 天气区块的第一个 div，具有背景、模糊、圆角、阴影、边框等样式 -->
+					<div class="relative p-5 border-l-4 border-purple-500/50 bg-white/5 rounded-r-lg"> <!-- 名言框的内部容器，左侧有紫色边框 -->
+						<p id="hitokoto-text" class="text-xl italic text-white/80 leading-relaxed">正在加载一言...</p> <!-- 名言文本的显示区域，初始显示加载中 -->
+						<p id="hitokoto-from" class="text-right text-purple-400 mt-3">— 佚名</p> <!-- 名言来源的显示区域 -->
+					</div>
+				</div>
+
+				<!-- Time and Weather: Displays current date, time, and weather -->
+				<div class="bg-white/5 backdrop-blur-lg rounded-2xl shadow-xl p-7 card-hover border border-white/20 flex-grow flex flex-col justify-center"> <!-- 天气区块的第二个 div，样式与第一个类似 -->
+					<div class="text-center">
+						<div id="datetime" class="text-4xl font-extrabold text-white mb-4 tracking-wide">加载中...</div> <!-- 日期时间显示区域，初始显示加载中 -->
+						<div id="weather" class="text-xl text-blue-400/80 tracking-wide">天气获取中...</div> <!-- 天气信息的显示区域 -->
+					</div>
+				</div>
+			</section>
+
+			<!-- Carousel Section: Image carousel area -->
+			<!-- Placed inside main, ordered as order: 2 in flex layout -->
+			<section id="carousel-section" class="carousel-section w-full max-w-[800px] flex-none min-h-[700px] justify-center relative mx-auto overflow-hidden card-hover border border-white/20 bg-white/5 backdrop-blur-lg shadow-xl order-2">
+				<h2 class="text-2xl font-bold text-white pt-8 px-8 tracking-wide">蜜橘迷途</h2> <!-- 轮播图的标题 -->
+                
+				<!-- Container for carousel slides：轮播图幻灯片的容器 -->
+				<div id="carousel-container" class="carousel-container">
+					<!-- Slides will be dynamically populated here by JavaScript -->
+				</div>
+                
+				<!-- Carousel Control Buttons：轮播图的左右控制按钮 -->
+				<button class="carousel-control prev"><i class="fa fa-chevron-left"></i></button> <!-- 上一张按钮 -->
+				<button class="carousel-control next"><i class="fa fa-chevron-right"></i></button> <!-- 下一张按钮 -->
+                
+				<!-- Indicators container：轮播图的页码指示器（小圆点）容器 -->
+				<div class="carousel-indicators" id="carousel-indicators"></div>
+			</section>
+
+			<!-- *** New Addition: Video Player Module ***：新增：视频播放器模块 -->
+			<!-- Placed inside main, ordered as order: 3 in flex layout -->
+			<section id="video-player-section" class="video-player-section order-3 mt-10"> 
+				<h2>蜜橘</h2> <!-- 视频模块的标题 -->
+                
+				<!-- Video player element：视频实际播放器元素 -->
+				<video id="videoPlayer" controls> 
+					<!-- 
+						Please Note:
+						- Video sources will be dynamically loaded by JavaScript.
+						- The default `src` attribute can be omitted or set to a generic placeholder.
+						- `width="100%"` and other styles are controlled by CSS.
+					-->
+					Your browser does not support playing video files. <!-- Fallback text -->
+				</video>
+                
+				<!-- Video control buttons：视频控制按钮 -->
+				<div class="video-controls">
+					<button id="prevVideoBtn" class="fa fa-backward" aria-label="Previous Video"></button> <!-- 上一个视频按钮 -->
+					<button id="videoPlayPauseBtn" class="fa fa-play" aria-label="Play/Pause Video"></button> <!-- 播放/暂停按钮 -->
+					<button id="nextVideoBtn" class="fa fa-forward" aria-label="Next Video"></button> <!-- 下一个视频按钮 -->
+				</div>
+			</section>
+			<!-- *** End of New Addition: Video Player Module *** -->
+
+		</div>
+
+		<!-- Image Gallery Section: 图片画廊区域 -->
+		<!-- Placed inside main, as the last section of the content area -->
+		<section id="gallery" class="mt-24"> <!-- 图片画廊区域，设置了较大的上外边距 -->
+			<h2 class="text-5xl font-bold mb-10 mx-auto max-w-xl text-shadow text-center">蜜橘迷途</h2> <!-- 画廊标题 -->
+			<div class="gallery-grid">
+				<!-- Gallery items will be dynamically populated here -->
+			</div>
+		</section>
+	</main>
+    
+	<!-- Footer: Bottom section of the page -->
+	<footer class="bg-white/5 backdrop-blur-lg py-16 relative overflow-hidden border-t border-white/20"> <!-- 页脚样式 -->
+		<div class="container mx-auto px-4 relative z-10 max-w-7xl"> <!-- 页脚内容容器 -->
+			<!-- Footer Columns: Multi-column layout for the footer -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"> <!-- Grid布局 -->
+				<!-- About Us: About our section -->
+				<div class="flex flex-col items-start"> <!-- About us区块 -->
+					<h3 class="text-2xl font-bold mb-4 flex items-center text-purple-400">
+						<i class="fa fa-heart mr-3 text-3xl"></i> 鞠婧祎
+					</h3>
+					<p class="text-gray-400 mb-5 font-sans leading-relaxed text-lg">
+						橘子人生。
+					</p>
+					<!-- Social Icons in Footer: Social media links in the footer -->
+					<div class="flex space-x-6"> <!-- Flex布局，item间距6 -->
+						<!-- GitHub 链接 -->
+						<a href="#" target="_blank" aria-label="GitHub" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-3xl"><i class="fa fa-github"></i></a>
+						<!-- QQ Group 链接 -->
+						<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=LhMH9Fx42dMoarhP3-xeOoSaWumFC4Fj&authKey=6QKOMIotkqXWQUhz4NQx488m9He%2FI5VG71BEomX2C7ICXo1iY2al5I74qkEPzknz&noverify=0&group_code=805881393" target="_blank" aria-label="QQ group" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-3xl"><i class="fa fa-qq"></i></a>
+						<!-- Email 链接 -->
+						<a href="mailto:whctwlgzs@foxmail.com" aria-label="Email" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-3xl"><i class="fa fa-envelope"></i></a>
+						<!-- Telegram 链接 -->
+						<a href="#" target="_blank" aria-label="Telegram" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-3xl"><i class="fa fa-telegram"></i></a>
+					</div>
+				</div>
+                
+				<!-- Quick Links -->
+				<div class="flex flex-col items-start"> <!-- Quick Links区块 -->
+					<h3 class="text-2xl font-bold mb-4 flex items-center text-purple-400">
+						<i class="fa fa-link mr-3 text-3xl"></i> 快速链接
+					</h3>
+					<ul class="space-y-3"> <!-- 链接列表，元素间距3 -->
+						<li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-lg">首页</a></li>
+						<li><a href="https://space.bilibili.com/11454050?spm_id_from=333.1007.0.0" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-lg">博客</a></li>
+					</ul>
+				</div>
+                
+				<!-- Contact Me -->
+				<div class="flex flex-col items-start"> <!-- Contact Me区块 -->
+					<h3 class="text-2xl font-bold mb-4 flex items-center text-purple-400">
+						<i class="fa fa-envelope mr-3 text-3xl"></i> 联系我
+					</h3>
+					<ul class="space-y-3"> <!-- 联系方式列表 -->
+						<li class="flex items-center text-gray-400"> <!-- Flex item -->
+							<i class="fa fa-envelope-o text-blue-400 mr-3 text-xl"></i> qq316091613@gmail.com
+						</li>
+						<li class="flex items-center text-gray-400">
+							<i class="fa fa-qq text-blue-400 mr-3 text-xl"></i> QQ:316091613
+						</li>
+						<li class="flex items-center text-gray-400">
+							<i class="fa fa-map-marker text-blue-400 mr-3 text-xl"></i> 中国 · 肇庆
+						</li>
+					</ul>
+				</div>
+			</div>
+            
+			<!-- Copyright Information：版权信息 -->
+			<div class="border-t border-white/20 mt-16 pt-12 text-center text-white/40"> <!-- 顶部边框，上下文调整 -->
+				<p class="text-lg">© 2025-8.30 小狗儿enjoy. 保留所有权利.</p> <!-- 版权声明 -->
+				<p class="mt-4 text-base"><a href="https://beian.miit.gov.cn/" target="_blank" class="hover:text-blue-400 transition-colors duration-300">鄂ICP备2024050280号</a></p> <!-- ICP备案链接 -->
+			</div>
+		</div>
+	</footer>
+
+	<!-- JavaScript -->
+	<!-- 引入外部 JavaScript 文件，其中包含了所有功能逻辑 -->
+	<script src="script.js"></script> 
+</body>
+</html>

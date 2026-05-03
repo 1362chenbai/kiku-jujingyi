@@ -1,0 +1,145 @@
+/* 
+ * style.css - 样式表
+ * 主题：深邃宇宙蓝 & 电光紫
+ */
+
+:root {
+    /* 定义全局颜色变量，方便统一修改 */
+    --color-bg-deep: #0a192f;            /* 深蓝色背景 */
+    --color-bg-light: #112240;           /* 浅蓝色背景 (用于卡片等) */
+    --color-accent-primary: #9D65FF;     /* 主强调色：电光紫 */
+    --color-accent-secondary: #64D2FF;   /* 次强调色：亮蓝色 */
+    --color-text-main: #ccd6f6;          /* 主文本颜色：淡蓝灰色 */
+    --color-text-dim: #8892b0;           /* 次要文本颜色：灰色 */
+    --color-text-bright: #ffffff;        /* 高亮文本颜色：白色 */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 平滑过渡动画曲线 */
+    --shadow-glow: 0 0 15px rgba(100, 210, 255, 0.5);           /* 发光阴影 */
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.5);               /* 深色阴影 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 确保 padding 和 border 不影响元素宽度 */
+}
+
+body {
+    font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-deep);
+    overflow-x: hidden; /* 防止页面出现横向滚动条 */
+}
+
+/* === 头部 & 字体样式 === */
+header {
+    padding: 2rem 0;
+    text-align: center;
+    background: transparent;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: var(--color-accent-primary);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(157, 101, 255, 0.4); /* 为标题添加紫色发光效果 */
+    margin-bottom: 0.5rem;
+}
+
+/* === 画廊布局 (核心优化部分) === */
+.gallery-grid {
+    display: grid;
+    /* 响应式网格：自动填充，最小列宽 240px，最大 1fr */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    background: var(--color-bg-light);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    box-shadow: var(--shadow-deep);
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 4 / 5; /* 强制保持 4:5 的纵横比，确保视觉统一 */
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02); /* 悬停时上移并轻微放大 */
+    box-shadow: 0 15px 35px rgba(157, 109, 255, 0.3); /* 增强紫色阴影 */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 填充整个卡片，裁剪多余部分，保证美观 */
+    transition: var(--transition-smooth);
+}
+
+.gallery-item:hover img {
+    filter: brightness(0.7); /* 悬停时图片稍微变暗，突出文字 */
+}
+
+/* 标题覆盖层 */
+.gallery-item .caption-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); /* 底部渐变黑色背景 */
+    transition: var(--transition-smooth);
+    opacity: 0; /* 默认隐藏 */
+    transform: translateY(10px); /* 默认向下偏移 */
+}
+
+.gallery-item:hover .caption-container {
+    opacity: 1; /* 悬停时显示 */
+    transform: translateY(0); /* 回到原位 */
+}
+
+.gallery-item .gallery-caption {
+    color: var(--color-text-bright);
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+/* === 响应式调整 === */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 中等屏幕减小列宽 */
+        gap: 15px;
+    }
+    header h1 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr; /* 手机屏幕固定两列 */
+        gap: 10px;
+    }
+}
+
+/* === 全局组件优化 === */
+.card-hover {
+    transition: var(--transition-smooth);
+}
+.card-hover:hover {
+    transform: translateY(-5px); /* 轻微上移 */
+    box-shadow: 0 10px 20px rgba(100, 210, 255, 0.2); /* 浅蓝色发光阴影 */
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg-deep); }
+::-webkit-scrollbar-thumb { 
+    /* 滚动条滑块使用紫色到蓝色的渐变 */
+    background: linear-gradient(var(--color-accent-primary), var(--color-accent-secondary)); 
+    border-radius: 4px;
+}

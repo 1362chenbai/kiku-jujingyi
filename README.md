@@ -34,7 +34,7 @@
 
 ---
 
-## 🚀 快速部署 (Quick Deploy)
+## 🚀 一键部署 (Quick Deploy)
 
 <p align="center">
   <img src="https://c.chenbq.xyz/ju%20(894).png" width="25" align="center"> 

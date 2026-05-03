@@ -42,7 +42,7 @@
 </p>
 
 <p align="center">
-  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/1362chenbai/kiku-jujingyi">
+  <a href="https://deploy.pages.cloudflare.com/?url=https://github.com/1362chenbai/kiku-jujingyi">
     <img src="https://img.shields.io/badge/Deploy_to-Cloudflare_Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Deploy Button">
   </a>
 </p>
